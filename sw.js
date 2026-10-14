@@ -1,4 +1,0 @@
-const C='strike-arena-v3',THREE='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
-self.addEventListener('install',e=>{self.skipWaiting();e.waitUntil(caches.open(C).then(async c=>{await c.addAll(['./','index.html','manifest.json','icon-192.png','icon-512.png','icon-maskable.png']);try{await c.put(THREE,await fetch(THREE,{mode:'no-cors'}))}catch(x){}}))});
-self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(n=>n!==C).map(n=>caches.delete(n)))).then(()=>self.clients.claim())));
-self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(res=>{const cp=res.clone();caches.open(C).then(c=>c.put(e.request,cp));return res}).catch(()=>caches.match('index.html'))))});
